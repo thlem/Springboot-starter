@@ -1,0 +1,46 @@
+# Eclipse conf
+.project
+.classpath
+.settings/
+bin/
+
+# Maven build dir
+target/
+
+# And all .class files
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# And all logs...
+logs/
+*.log
+
+# Netbeans configuration
+nb-configuration.xml
+.metadata/
+
+# Idea configuration
+.idea/*
+*.iml
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# There is no styles nor JavaScript on the backend
+*.js
+*.css
+/rte-csp-backend-application/src/main/resources/db/db_files/
+/rte-csp-backend-application/src/main/resources/db/
+dev-local.lck
+dev-local.properties
+dev-local.script
+nbactions.xml
+rte-csp-backend-api/src/main/webapp/META-INF/context.xml
+rte-csp-backend-file-manager/src/main/webapp/META-INF/context.xml
