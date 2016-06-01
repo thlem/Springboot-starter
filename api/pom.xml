@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.soc</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>api</artifactId>
+
+	<packaging>war</packaging>
+
+	<name>Backend REST API</name>
+
+	<description>The REST API</description>
+
+	<dependencies>
+		
+		<!-- Dependency to the business layer -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>business</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- Provides Spring Test, JUnit, Hamcrest and Mockito dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- suite of java libraries are all about automating the generation of machine and human readable specifications for JSON APIs -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+		</dependency>
+		
+		<!-- Pulling in the dependency creates a webjar containing the swagger-ui static content. 
+		It adds a JSON endpoint /swagger-resources which lists all of the swagger resources and versions configured for a given application. 
+		The Swagger UI page should then be available at http://localhost:8080/swagger-ui.html -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<plugins>
+			
+			<!-- The WAR Plugin is responsible for collecting all artifact dependencies, 
+			classes and resources of the web application and packaging them into a web application archive -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven-war-plugin.version}</version><!--$NO-MVN-MAN-VER$ -->
+				<configuration>
+					<!-- Specify here to don't give errors where web.xml is missing (no need) -->
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+
+
+
+		</plugins>
+
+	</build>
+</project>
