@@ -5,7 +5,7 @@ For professional support please see http://www.qos.ch/shop/products/professional
 	
 	<if condition='isDefined("catalina.home")'>
         <then>
-            <property name="log.folder" value="${catalina.home}/logs"/>
+            <property name="log.folder" value="${CATALINA_HOME}/logs"/>
         </then>
         <else>
             <property name="log.folder" value="./target/logs"/>
@@ -20,7 +20,7 @@ For professional support please see http://www.qos.ch/shop/products/professional
     </appender>
 
     <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${CATALINA_HOME}/logs/api.log</file>
+        <file>${log.folder}/logs/api.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- Keep only 10 archives -->
             <maxHistory>10</maxHistory>
