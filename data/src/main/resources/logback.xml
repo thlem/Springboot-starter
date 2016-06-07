@@ -2,16 +2,6 @@
 in general, please contact the logback user mailing list at http://www.qos.ch/mailman/listinfo/logback-user. 
 For professional support please see http://www.qos.ch/shop/products/professionalSupport -->
 <configuration scan="true" scanPeriod="30 seconds" >
-	
-	<if condition='isDefined("catalina.home")'>
-        <then>
-            <property name="log.folder" value="${catalina.home}/logs"/>
-        </then>
-        <else>
-            <property name="log.folder" value="./target/logs"/>
-        </else>
-    </if>
-
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
         <encoder>
@@ -20,12 +10,12 @@ For professional support please see http://www.qos.ch/shop/products/professional
     </appender>
 
     <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${CATALINA_HOME}/logs/api.log</file>
+        <file>${CATALINA_HOME}/logs/data.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- Keep only 10 archives -->
             <maxHistory>10</maxHistory>
             <!-- rollover daily -->
-            <fileNamePattern>${CATALINA_HOME}/logs/logs-archives/api-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <fileNamePattern>${CATALINA_HOME}/logs/logs-archives/data-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 10MB -->
                 <maxFileSize>10MB</maxFileSize>
@@ -38,7 +28,7 @@ For professional support please see http://www.qos.ch/shop/products/professional
     
     <logger name="org.springframework" level="WARN" />
     
-    <logger name="fr.soc" level="DEBUG" />
+    <logger name="fr.soc.data" level="DEBUG" />
 
     <root level="WARN">
         <appender-ref ref="stdout" />

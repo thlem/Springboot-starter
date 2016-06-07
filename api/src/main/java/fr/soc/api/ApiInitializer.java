@@ -4,6 +4,8 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -37,9 +39,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableJpaRepositories("fr")
 public class ApiInitializer extends SpringBootServletInitializer {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ApiInitializer.class);
+	
 	public static void main(String[] args) {
 
 		SpringApplication.run(ApiInitializer.class, args);
+		
+		LOGGER.info("The application has been run");
 
 	}
 
