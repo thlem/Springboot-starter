@@ -1,5 +1,7 @@
 package fr.soc.data.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +22,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	 * @param userLogin The login
 	 * @return
 	 */
-	public User findByUserLogin(String userLogin);
+	public Optional<User> findByUserLogin(String userLogin);
 
 	/**
 	 * Retrieve a User by its Mail
@@ -28,6 +30,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	 * @param userMail The mail
 	 * @return
 	 */
-	public User findByUserMail(String userMail);
+	public Optional<User> findByUserMail(String userMail);
 
 }

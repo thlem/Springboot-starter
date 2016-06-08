@@ -73,6 +73,7 @@ public class UserController {
 	})
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success", response = User.class),
+			@ApiResponse(code = 400, message = "Bad Request"),
 			@ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 403, message = "Forbidden"),
 			@ApiResponse(code = 404, message = "Not Found"),
