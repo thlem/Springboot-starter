@@ -44,7 +44,33 @@ public class UserServiceImpl implements UserService {
 			throw new EntityNotFoundException("The user with the ID " + userId + " does not exist.");
 		}
 
-		return userRepository.findOne(userId);
+		return user;
+
+	}
+
+	@Override
+	public User getUserByUserLogin(String userLogin) {
+
+		User user = userRepository.findByUserLogin(userLogin);
+
+		if (null == user) {
+			throw new EntityNotFoundException("The user with the Login " + userLogin + " does not exist.");
+		}
+
+		return user;
+
+	}
+
+	@Override
+	public User getUserByUserMail(String userMail) {
+
+		User user = userRepository.findByUserMail(userMail);
+
+		if (null == user) {
+			throw new EntityNotFoundException("The user with the Mail " + userMail + " does not exist.");
+		}
+
+		return user;
 
 	}
 

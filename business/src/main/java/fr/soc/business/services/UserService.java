@@ -18,12 +18,31 @@ public interface UserService {
 	 * @return List of User
 	 */
 	public List<User> getUsers();
-	
+
 	/**
 	 * Retrieve a User by its unique ID
 	 * 
-	 * @param userId The unique ID of a User
+	 * @param userId
+	 *            The unique ID of a User
 	 * @return The User
 	 */
 	public User getUserById(Long userId);
+
+	/**
+	 * Retrieve a User by its Login
+	 * 
+	 * @param userLogin
+	 *            The login
+	 * @return
+	 */
+	public User getUserByUserLogin(String userLogin);
+
+	/**
+	 * Retrieve a User by its Mail
+	 * 
+	 * @param userMail
+	 *            The mail
+	 * @return
+	 */
+	public User getUserByUserMail(String userMail);
 }

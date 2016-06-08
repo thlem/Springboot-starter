@@ -56,7 +56,7 @@ public class UserController {
 	public ResponseEntity<List<User>> getUsers() {
 
 		List<User> userList = userService.getUsers();
-		
+
 		return new ResponseEntity<>(userList, HttpStatus.OK);
 
 	}
@@ -82,7 +82,7 @@ public class UserController {
 	public ResponseEntity<User> getUser(@NotNull @PathVariable("userId") Long userId) {
 
 		User user = userService.getUserById(userId);
-		
+
 		return new ResponseEntity<>(user, HttpStatus.OK);
 
 	}

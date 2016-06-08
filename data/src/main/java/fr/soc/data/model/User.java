@@ -2,9 +2,12 @@ package fr.soc.data.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * User model that is used in DB
@@ -17,9 +20,9 @@ public class User {
 
 	// Unique key of a user
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
-	
+
 	// Login of the User, should be unique
 	@Column(nullable = false)
 	private String userLogin;
@@ -27,16 +30,22 @@ public class User {
 	// Password of the User, should be crypt before inserted in DB
 	@Column(nullable = false)
 	private String userPassword;
-	
+
 	// Mail of the User, should be unique
 	@Column(nullable = false)
 	private String userMail;
-	
+
 	// First Name of the User
 	private String userFirstName;
 
 	// Last Name of the User
 	private String userLastName;
+
+	// The Role of the User
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Column(nullable = false)
+	@JoinColumn(name = "ROLE_ID")
+	private Role userRole;
 
 	/*
 	 * GETTER & SETTER
@@ -88,6 +97,14 @@ public class User {
 
 	public void setUserLastName(String userLastName) {
 		this.userLastName = userLastName;
+	}
+
+	public Role getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(Role userRole) {
+		this.userRole = userRole;
 	}
 
 }
