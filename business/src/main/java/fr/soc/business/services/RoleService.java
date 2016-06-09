@@ -35,19 +35,38 @@ public interface RoleService {
 	 * @return The Role
 	 */
 	public Role getRoleByLabel(String roleLabel);
-	
+
 	/**
 	 * 
 	 * @param role
 	 * @return
 	 */
 	public Role createRole(Role role);
-	
+
 	/**
 	 * 
 	 * @param roleList
 	 * @return
 	 */
 	public List<Role> createRoles(List<Role> roleList);
+
+	/**
+	 * 
+	 * @param role
+	 * @return
+	 */
+	public Role updateRole(Role role);
+
+	/**
+	 * 
+	 * @param roleList
+	 */
+	public void deleteRoles(List<Role> roleList);
+
+	/**
+	 * 
+	 * @param role
+	 */
+	public void deleteRole(Role role);
 
 }

@@ -51,7 +51,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role getRoleByLabel(String roleLabel) {
 
-		Role role = roleRepository.findByLabel(roleLabel);
+		Role role = roleRepository.findByRoleLabel(roleLabel);
 
 		if (null == role) {
 			throw new EntityNotFoundException("The role with the label " + roleLabel + " does not exist.");
@@ -63,13 +63,13 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public Role createRole(Role role) {
-		
+
 		Role createdRole = null;
-		
+
 		if (null != role) {
 			createdRole = roleRepository.save(role);
 		}
-		
+
 		return createdRole;
 
 	}
@@ -86,6 +86,27 @@ public class RoleServiceImpl implements RoleService {
 		}
 
 		return createdRoles;
+
+	}
+
+	@Override
+	public Role updateRole(Role role) {
+
+		return roleRepository.save(role);
+
+	}
+
+	@Override
+	public void deleteRoles(List<Role> roleList) {
+
+		roleRepository.delete(roleList);
+
+	}
+
+	@Override
+	public void deleteRole(Role role) {
+
+		roleRepository.delete(role);
 
 	}
 

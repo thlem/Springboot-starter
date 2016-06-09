@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Role model that is used in DB
@@ -13,18 +14,20 @@ import javax.persistence.Id;
  *
  */
 @Entity
+@Table(name = "ROLE")
 public class Role {
 
 	// Unique key of a role
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ROLE_ID")
 	private Long roleId;
 
 	// Login of the User, should be unique
-	@Column(nullable = false)
+	@Column(nullable = false, name = "ROLE_LABEL")
 	private String roleLabel;
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "ROLE_LEVEL")
 	private int roleLevel;
 
 	/*

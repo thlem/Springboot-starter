@@ -21,6 +21,6 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
 	 *            The label
 	 * @return Role The Role
 	 */
-	public Role findByLabel(String roleLabel);
+	public Role findByRoleLabel(String roleLabel);
 
 }

@@ -91,35 +91,12 @@ public class RoleController {
 
 	}
 	
-	// POST ALL
-	
-	/**
-	 * <h2>Create All Roles</2>
-	 * 
-	 * @return ResponseEntity<List<Role>> The response containing a role list
-	 */
-	@ApiOperation(value = "createRoles", nickname = "createRoles")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Success", response = List.class),
-			@ApiResponse(code = 401, message = "Unauthorized"),
-			@ApiResponse(code = 403, message = "Forbidden"),
-			@ApiResponse(code = 500, message = "Failure")
-	})
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<List<Role>> createRoles(@NotNull @RequestBody List<Role> roleList) {
-
-		List<Role> createdRroles = roleService.createRoles(roleList);
-
-		return new ResponseEntity<>(createdRroles, HttpStatus.OK);
-
-	}
-	
 	//POST ONE
 	
 	/**
 	 * <h2>Create one Role</2>
 	 * 
-	 * @return ResponseEntity<List<Role>> The response containing a role
+	 * @return ResponseEntity<Role> The response containing a role
 	 */
 	@ApiOperation(value = "createRole", nickname = "createRole")
 	@ApiResponses(value = {
@@ -131,18 +108,81 @@ public class RoleController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Role> createRole(@NotNull @RequestBody Role role) {
 
-		Role createdRrole = roleService.createRole(role);
+		Role createdRole = roleService.createRole(role);
 
-		return new ResponseEntity<>(createdRrole, HttpStatus.OK);
+		return new ResponseEntity<>(createdRole, HttpStatus.OK);
 
 	}
 	
 	// PUT ONE
 	
+	/**
+	 * <h2>Update one Role</2>
+	 * 
+	 * @return ResponseEntity<Role> The response containing a role
+	 */
+	@ApiOperation(value = "updateRole", nickname = "updateRole")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success", response = Role.class),
+			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 403, message = "Forbidden"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Failure")
+	})
+	@RequestMapping(method = RequestMethod.PUT, path = "/{roleId}")
+	public ResponseEntity<Role> updateRole(@NotNull @RequestBody Role role) {
+
+		Role updatedRole = roleService.updateRole(role);
+
+		return new ResponseEntity<>(updatedRole, HttpStatus.OK);
+
+	}
+	
 	// DELETE ALL
+	
+	/**
+	 * <h2>Delete All Roles</2>
+	 * 
+	 * @return ResponseEntity The response
+	 */
+	@ApiOperation(value = "deleteRoles", nickname = "deleteRoles")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success", response = List.class),
+			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 403, message = "Forbidden"),
+			@ApiResponse(code = 500, message = "Failure")
+	})
+	@RequestMapping(method = RequestMethod.DELETE)
+	public ResponseEntity deleteRoles(@NotNull @RequestBody List<Role> roleList) {
+
+		roleService.deleteRoles(roleList);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+
+	}
 	
 	// DELETE ONE
 	
-	
+	/**
+	 * <h2>Update one Role</2>
+	 * 
+	 * @return ResponseEntity The response
+	 */
+	@ApiOperation(value = "deleteRole", nickname = "deleteRole")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success", response = Role.class),
+			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 403, message = "Forbidden"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Failure")
+	})
+	@RequestMapping(method = RequestMethod.DELETE, path = "/{roleId}")
+	public ResponseEntity deleteRole(@NotNull @RequestBody Role role) {
+
+		roleService.deleteRole(role);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+
+	}
 
 }
