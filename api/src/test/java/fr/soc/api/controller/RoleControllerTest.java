@@ -1,13 +1,14 @@
 package fr.soc.api.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.util.List;
-
-import javax.persistence.EntityNotFoundException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -134,7 +135,7 @@ public class RoleControllerTest {
 		mockMvc.perform(get("/api/roles/" + roleAfterCreation.getRoleId())).andExpect(status().isOk())
 				.andExpect(content().json(roleAfterCreationJson));
 	}
-	
+
 	/**
 	 * Test for the REST resource that update one role
 	 * 
@@ -160,7 +161,7 @@ public class RoleControllerTest {
 		mockMvc.perform(get("/api/roles/" + roleAfterCreation.getRoleId())).andExpect(status().isOk())
 				.andExpect(content().json(roleAfterCreationJson));
 	}
-	
+
 	/**
 	 * Test for the REST resource that delete all role
 	 * 
@@ -177,12 +178,6 @@ public class RoleControllerTest {
 
 		mockMvc.perform(delete("/api/roles/1").contentType(MediaType.APPLICATION_JSON).content(roleJson))
 				.andExpect(status().isOk());
-
-		try {
-			Role roleAfterCreation = roleService.getRoleById(1L);
-		} catch (EntityNotFoundException enfExc) {
-			
-		}
 
 		mockMvc.perform(get("/api/roles/" + role.getRoleId())).andExpect(status().isNotFound());
 	}
