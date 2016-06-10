@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
     
-    <ROLE ROLE_LABEL="ADMIN" ROLE_LEVEL="1" />
-    <ROLE ROLE_LABEL="USER" ROLE_LEVEL="2" />
+    <ROLE ROLE_ID="1" ROLE_LABEL="ADMIN" ROLE_LEVEL="1" />
+    <ROLE ROLE_ID="2" ROLE_LABEL="USER" ROLE_LEVEL="2" />
     
 </dataset>

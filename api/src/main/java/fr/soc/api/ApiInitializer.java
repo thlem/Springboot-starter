@@ -73,7 +73,7 @@ public class ApiInitializer extends SpringBootServletInitializer {
 	@Bean
     public DataSource dataSource() {
 		DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url("jdbc:hsqldb:hsql://localhost/dev-local");
+        dataSourceBuilder.url("jdbc:hsqldb:mem:test-local");
         dataSourceBuilder.username("sa");
         dataSourceBuilder.password("");
         dataSourceBuilder.driverClassName("org.hsqldb.jdbcDriver");
