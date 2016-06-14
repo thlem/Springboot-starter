@@ -45,4 +45,13 @@ public interface UserService {
 	 * @return
 	 */
 	public User getUserByUserMail(String userMail);
+
+	/**
+	 * Retrieve a User by its authenticated token
+	 * 
+	 * @param token
+	 *            The token
+	 * @return The User
+	 */
+	public User getUserByAuthenticatedTokenAndUserLogin(String token, String login);
 }

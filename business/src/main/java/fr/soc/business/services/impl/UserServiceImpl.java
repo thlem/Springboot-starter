@@ -74,4 +74,18 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public User getUserByAuthenticatedTokenAndUserLogin(String token, String login) {
+
+		User user = userRepository.findByAuthenticatedTokenAndUserLogin(token, login);
+
+		if (null == user) {
+			throw new EntityNotFoundException(
+					"The user with the token " + token + " and the login " + login + " is not found.");
+		}
+
+		return user;
+
+	}
+
 }

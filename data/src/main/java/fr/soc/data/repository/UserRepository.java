@@ -19,7 +19,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	 * 
 	 * @param userLogin
 	 *            The login
-	 * @return
+	 * @return The User
 	 */
 	public User findByUserLogin(String userLogin);
 
@@ -28,8 +28,19 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	 * 
 	 * @param userMail
 	 *            The mail
-	 * @return
+	 * @return The USer
 	 */
 	public User findByUserMail(String userMail);
+
+	/**
+	 * Retrieve a User by its authenticated token and its login
+	 * 
+	 * @param token
+	 *            The token
+	 * @param login
+	 *            The login
+	 * @return The User
+	 */
+	public User findByAuthenticatedTokenAndUserLogin(String token, String login);
 
 }

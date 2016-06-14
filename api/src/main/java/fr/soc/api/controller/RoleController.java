@@ -164,7 +164,7 @@ public class RoleController {
 	// DELETE ONE
 	
 	/**
-	 * <h2>Update one Role</2>
+	 * <h2>Delete one Role</2>
 	 * 
 	 * @return ResponseEntity The response
 	 */

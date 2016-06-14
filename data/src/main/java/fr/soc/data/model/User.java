@@ -1,5 +1,7 @@
 package fr.soc.data.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * User model that is used in DB
@@ -16,35 +19,42 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class User {
+@Table(name = "USER")
+public class User implements Serializable {
 
 	// Unique key of a user
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "USER_ID")
 	private Long userId;
 
 	// Login of the User, should be unique
-	@Column(nullable = false)
+	@Column(nullable = false, name = "USER_LOGIN")
 	private String userLogin;
 
 	// Password of the User, should be crypt before inserted in DB
-	@Column(nullable = false)
+	@Column(nullable = false, name = "USER_ENC_PASSWORD")
 	private String userPassword;
 
 	// Mail of the User, should be unique
-	@Column(nullable = false)
+	@Column(nullable = false, name = "USER_MAIL")
 	private String userMail;
 
 	// First Name of the User
+	@Column(name = "USER_FIRST_NAME")
 	private String userFirstName;
 
 	// Last Name of the User
+	@Column(name = "USER_LAST_NAME")
 	private String userLastName;
 
 	// The Role of the User
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID")
 	private Role userRole;
+
+	@Column(name = "AUTH_TOKEN")
+	private String authenticatedToken;
 
 	/*
 	 * GETTER & SETTER
@@ -104,6 +114,14 @@ public class User {
 
 	public void setUserRole(Role userRole) {
 		this.userRole = userRole;
+	}
+
+	public String getAuthenticatedToken() {
+		return authenticatedToken;
+	}
+
+	public void setAuthenticatedToken(String authenticatedToken) {
+		this.authenticatedToken = authenticatedToken;
 	}
 
 }
