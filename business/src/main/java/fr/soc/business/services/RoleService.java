@@ -37,6 +37,7 @@ public interface RoleService {
 	public Role getRoleByLabel(String roleLabel);
 
 	/**
+	 * Create in DB the given Role
 	 * 
 	 * @param role
 	 * @return
@@ -44,6 +45,7 @@ public interface RoleService {
 	public Role createRole(Role role);
 
 	/**
+	 * Create in DB the given list of Roles
 	 * 
 	 * @param roleList
 	 * @return
@@ -51,6 +53,7 @@ public interface RoleService {
 	public List<Role> createRoles(List<Role> roleList);
 
 	/**
+	 * Update the given Role
 	 * 
 	 * @param role
 	 * @return
@@ -58,12 +61,14 @@ public interface RoleService {
 	public Role updateRole(Role role);
 
 	/**
+	 * Delete the given list of Roles
 	 * 
 	 * @param roleList
 	 */
 	public void deleteRoles(List<Role> roleList);
 
 	/**
+	 * Delete the given Role
 	 * 
 	 * @param role
 	 */

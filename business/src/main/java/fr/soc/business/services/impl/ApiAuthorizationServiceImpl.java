@@ -24,34 +24,34 @@ public class ApiAuthorizationServiceImpl implements ApiAuthorizationService {
 	private ApiAuthorizationRepository apiAuthorizationRepository;
 
 	@Override
-	public String getAllByApiValue(String apiValue) {
+	public String getRestAuthorityByRestValue(String restValue) {
 
-		String roleRestriction = "";
+		// Initialize the authority definition
+		StringBuilder roleRestriction = new StringBuilder();
 
-		List<ApiAuthorization> apiAuthList = apiAuthorizationRepository.findAllByApiValue(apiValue);
+		// Retrieve links api/role
+		List<ApiAuthorization> apiAuthList = apiAuthorizationRepository.findAllByApiValue(restValue);
 
 		if (null != apiAuthList && !apiAuthList.isEmpty()) {
 
 			for (ApiAuthorization apiAuthorization : apiAuthList) {
-
-				if (roleRestriction.isEmpty()) {
-					roleRestriction = "hasAuthority('" + apiAuthorization.getRequiredRole().getRoleLabel() + "')";
-				} else {
-					roleRestriction += "hasAuthority('" + apiAuthorization.getRequiredRole().getRoleLabel() + "')";
-				}
-
+				
+				// Add each authorized roles for the given api value
+				roleRestriction.append("hasAuthority('" + apiAuthorization.getRequiredRole().getRoleLabel() + "')");
+				
+				// If this is not the last entry
 				if (apiAuthList.indexOf(apiAuthorization) != apiAuthList.size() - 1) {
-					roleRestriction += " and ";
+					roleRestriction.append(" and ");
 				}
 			}
 
 		}
 
-		if (roleRestriction.isEmpty()) {
-			roleRestriction = "hasRole('TEST')";
+		if (roleRestriction.length() == 0) {
+			roleRestriction.append("hasRole('NO_ROLE')");
 		}
 
-		return roleRestriction;
+		return roleRestriction.toString();
 	}
 
 	@Override

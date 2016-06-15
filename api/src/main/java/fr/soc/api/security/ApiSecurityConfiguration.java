@@ -46,9 +46,9 @@ public class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// The service that provide checks for authenticated user
 		.addFilterBefore(apiSecurityFilter, AnonymousAuthenticationFilter.class)
 		.authorizeRequests().antMatchers("/swagger-ui**").permitAll()
-		.antMatchers(HttpMethod.GET, "/api/admin/**").access(securityService.getAllByApiValue("get/api/admin/**"))
-		.antMatchers(HttpMethod.POST, "/api/admin/**").access(securityService.getAllByApiValue("post/api/admin/**"))
-		.antMatchers(HttpMethod.GET, "/api/**").access(securityService.getAllByApiValue("get/api/**"));
+		.antMatchers(HttpMethod.GET, "/api/admin/**").access(securityService.getRestAuthorityByRestValue("get/api/admin/**"))
+		.antMatchers(HttpMethod.POST, "/api/admin/**").access(securityService.getRestAuthorityByRestValue("post/api/admin/**"))
+		.antMatchers(HttpMethod.GET, "/api/**").access(securityService.getRestAuthorityByRestValue("get/api/**"));
 	}
 
 	/**

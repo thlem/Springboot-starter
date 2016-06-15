@@ -27,6 +27,10 @@ import fr.soc.business.services.UserService;
 import fr.soc.data.model.User;
 
 /**
+ * <h1>The API security filter</h1>
+ * <p>
+ * Retrieve data from the HEADER to check if current access is authorized
+ * </p>
  * 
  * @author thomas.lemercier.pro@gmail.com
  *
@@ -43,11 +47,11 @@ public class ApiSecurityFilter extends GenericFilterBean {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		//
+		// Retrieve the token from the Header
 		String authenticatedToken = ((HttpServletRequest) request)
 				.getHeader(ApiSecurityConfiguration.SecurityConstant.HEADER_AUTH_TOKEN);
-		
-		//
+
+		// Retrieve the login from the Header
 		String authenticatedLogin = ((HttpServletRequest) request)
 				.getHeader(ApiSecurityConfiguration.SecurityConstant.HEADER_AUTH_LOGIN);
 
@@ -56,29 +60,25 @@ public class ApiSecurityFilter extends GenericFilterBean {
 				ApiSecurityConfiguration.SecurityConstant.HEADER_AUTH_LOGIN, authenticatedLogin);
 
 		if (null == authenticatedToken || null == authenticatedLogin) {
-			
-			//
+
+			// If one of the required header is missing
 			changeResponseToUnauthorized(response);
 
 		} else {
 
 			try {
-				
-				//
-				User authenticatedUser = userService.getUserByAuthenticatedTokenAndUserLogin(authenticatedToken, authenticatedLogin);
+
+				// Retrieve the user by token and login
+				User authenticatedUser = userService.getUserByAuthenticatedTokenAndUserLogin(authenticatedToken,
+						authenticatedLogin);
 
 				Set<GrantedAuthority> authorities = new HashSet<>();
-				
-				//
-				if (authenticatedUser.getUserRole() != null) {
 
-					authorities.add(new SimpleGrantedAuthority(authenticatedUser.getUserRole().getRoleLabel()));
+				authorities.add(new SimpleGrantedAuthority(authenticatedUser.getUserRole().getRoleLabel()));
 
-				}
-
-				//
-				UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-						authenticatedUser.getUserLogin(), authenticatedUser.getUserPassword(), authorities);
+				// Populating authentication token with user information
+				UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authenticatedUser,
+						authenticatedUser.getUserPassword(), authorities);
 
 				auth.setDetails(authenticatedUser);
 				SecurityContextHolder.getContext().setAuthentication(auth);
@@ -95,6 +95,7 @@ public class ApiSecurityFilter extends GenericFilterBean {
 	}
 
 	/**
+	 * Set the response to unauthorized
 	 * 
 	 * @param response
 	 * @throws IOException
