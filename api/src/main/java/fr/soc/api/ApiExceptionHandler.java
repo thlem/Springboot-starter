@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
+ * <h1>The API Exception Handler</h1>
+ * 
+ * <p>
+ * Allow to handle exceptions. Log exception details and redirect with an error status.
+ * </p>
  * 
  * @author thomas.lemercier.pro@gmail.com
  *

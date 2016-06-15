@@ -23,10 +23,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
- * <h1>REST API for roles</h1>
+ * <h1>REST Resource for managing Roles</h1>
  * 
  * <p>
- * This api manages roles.
+ * Provide an interface to manage Roles.
  * </p>
  * 
  * @author thomas.lemercier.pro@gmail.com
@@ -39,21 +39,20 @@ public class RoleController {
 
 	@Autowired
 	private RoleService roleService;
-	
+
 	// GET ALL
-	
+
 	/**
-	 * <h2>Get All Roles</2>
+	 * Retrieve all Roles.
 	 * 
 	 * @return ResponseEntity<List<Role>> The response containing a role list
 	 */
 	@ApiOperation(value = "getRoles", nickname = "getRoles")
-	@ApiResponses(value = {
+	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Success", response = List.class),
-			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 401, message = "Unauthorized"), 
 			@ApiResponse(code = 403, message = "Forbidden"),
-			@ApiResponse(code = 500, message = "Failure")
-	})
+			@ApiResponse(code = 500, message = "Failure") })
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Role>> getRoles() {
 
@@ -62,24 +61,24 @@ public class RoleController {
 		return new ResponseEntity<>(roleList, HttpStatus.OK);
 
 	}
-	
+
 	// GET ONE BY
-	
+
 	/**
-	 * <h2>Get One Role By ID</h2>
+	 * Retrieve one Role by its ID.
 	 * 
-	 * @param roleId The unique ID of a Role
+	 * @param roleId
+	 *            The unique ID of a Role
 	 * @return ResponseEntity<Role> The response containing a Role
 	 */
 	@ApiOperation(value = "getRole", nickname = "getRole")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "roleId", value = "The role ID", required = false, dataType = "Long", paramType = "query")
-	})
-	@ApiResponses(value = {
+			@ApiImplicitParam(name = "roleId", value = "The role ID", required = false, dataType = "Long", paramType = "query") })
+	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Success", response = Role.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 400, message = "Bad Request"), 
 			@ApiResponse(code = 401, message = "Unauthorized"),
-			@ApiResponse(code = 403, message = "Forbidden"),
+			@ApiResponse(code = 403, message = "Forbidden"), 
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Failure") })
 	@RequestMapping(method = RequestMethod.GET, path = "/{roleId}")
@@ -90,21 +89,22 @@ public class RoleController {
 		return new ResponseEntity<>(role, HttpStatus.OK);
 
 	}
-	
-	//POST ONE
-	
+
+	// POST ONE
+
 	/**
-	 * <h2>Create one Role</2>
+	 * Create a new Role.
 	 * 
+	 * @param role
+	 *            The Role to create
 	 * @return ResponseEntity<Role> The response containing a role
 	 */
 	@ApiOperation(value = "createRole", nickname = "createRole")
-	@ApiResponses(value = {
+	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Success", response = Role.class),
-			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 401, message = "Unauthorized"), 
 			@ApiResponse(code = 403, message = "Forbidden"),
-			@ApiResponse(code = 500, message = "Failure")
-	})
+			@ApiResponse(code = 500, message = "Failure") })
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Role> createRole(@NotNull @RequestBody Role role) {
 
@@ -113,22 +113,23 @@ public class RoleController {
 		return new ResponseEntity<>(createdRole, HttpStatus.OK);
 
 	}
-	
+
 	// PUT ONE
-	
+
 	/**
-	 * <h2>Update one Role</2>
+	 * Update an existing Role.
 	 * 
+	 * @param role
+	 *            The Role to update
 	 * @return ResponseEntity<Role> The response containing a role
 	 */
 	@ApiOperation(value = "updateRole", nickname = "updateRole")
-	@ApiResponses(value = {
+	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Success", response = Role.class),
-			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 401, message = "Unauthorized"), 
 			@ApiResponse(code = 403, message = "Forbidden"),
-			@ApiResponse(code = 404, message = "Not Found"),
-			@ApiResponse(code = 500, message = "Failure")
-	})
+			@ApiResponse(code = 404, message = "Not Found"), 
+			@ApiResponse(code = 500, message = "Failure") })
 	@RequestMapping(method = RequestMethod.PUT, path = "/{roleId}")
 	public ResponseEntity<Role> updateRole(@NotNull @RequestBody Role role) {
 
@@ -137,21 +138,22 @@ public class RoleController {
 		return new ResponseEntity<>(updatedRole, HttpStatus.OK);
 
 	}
-	
+
 	// DELETE ALL
-	
+
 	/**
-	 * <h2>Delete All Roles</2>
+	 * Delete all Roles.
 	 * 
+	 * @param roleList
+	 *            The Role List to delete
 	 * @return ResponseEntity The response
 	 */
 	@ApiOperation(value = "deleteRoles", nickname = "deleteRoles")
-	@ApiResponses(value = {
+	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Success", response = List.class),
 			@ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 403, message = "Forbidden"),
-			@ApiResponse(code = 500, message = "Failure")
-	})
+			@ApiResponse(code = 500, message = "Failure") })
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ResponseEntity deleteRoles(@NotNull @RequestBody List<Role> roleList) {
 
@@ -160,22 +162,23 @@ public class RoleController {
 		return new ResponseEntity<>(HttpStatus.OK);
 
 	}
-	
+
 	// DELETE ONE
-	
+
 	/**
-	 * <h2>Delete one Role</2>
+	 * Delete one Role.
 	 * 
+	 * @param role
+	 *            The Role to delete
 	 * @return ResponseEntity The response
 	 */
 	@ApiOperation(value = "deleteRole", nickname = "deleteRole")
-	@ApiResponses(value = {
+	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Success", response = Role.class),
 			@ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 403, message = "Forbidden"),
 			@ApiResponse(code = 404, message = "Not Found"),
-			@ApiResponse(code = 500, message = "Failure")
-	})
+			@ApiResponse(code = 500, message = "Failure") })
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{roleId}")
 	public ResponseEntity deleteRole(@NotNull @RequestBody Role role) {
 

@@ -1,13 +1,17 @@
 package fr.soc.business.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import fr.soc.business.services.ApiAuthorizationService;
 import fr.soc.data.model.ApiAuthorization;
+import fr.soc.data.model.Role;
 import fr.soc.data.repository.ApiAuthorizationRepository;
 
 /**
@@ -20,12 +24,14 @@ import fr.soc.data.repository.ApiAuthorizationRepository;
 @Service
 public class ApiAuthorizationServiceImpl implements ApiAuthorizationService {
 
+	private static Logger LOGGER = LoggerFactory.getLogger(ApiAuthorizationServiceImpl.class);
+	
 	@Resource
 	private ApiAuthorizationRepository apiAuthorizationRepository;
 
 	@Override
 	public String getRestAuthorityByRestValue(String restValue) {
-
+		LOGGER.debug("TOTOTOTOTOOTOTOTOTOTOTOTOTOTOTOTOTOTOTOTOOTOTOTOTOTOTOT {}", restValue);
 		// Initialize the authority definition
 		StringBuilder roleRestriction = new StringBuilder();
 
@@ -48,6 +54,7 @@ public class ApiAuthorizationServiceImpl implements ApiAuthorizationService {
 		}
 
 		if (roleRestriction.length() == 0) {
+			LOGGER.info("TATATATAATATATATAt {}", restValue);
 			roleRestriction.append("hasRole('NO_ROLE')");
 		}
 
@@ -59,6 +66,15 @@ public class ApiAuthorizationServiceImpl implements ApiAuthorizationService {
 
 		return apiAuthorizationRepository.save(apiAuthorization);
 
+	}
+
+	@Override
+	public List<ApiAuthorization> getAll() {
+		List<ApiAuthorization> roleList = new ArrayList<>();
+
+		apiAuthorizationRepository.findAll().iterator().forEachRemaining(roleList::add);
+
+		return roleList;
 	}
 
 }

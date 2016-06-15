@@ -24,10 +24,10 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * <h1>The Application run initialization</h1>
+ * <h1>The Application's run initialization</h1>
  * 
  * <p>
- * This manages the run actions of the springboot Application.
+ * This manages some of actions that should be done on Application startup.
  * </p>
  * 
  * @author thomas.lemercier.pro@gmail.com
@@ -40,19 +40,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class ApiInitializer extends SpringBootServletInitializer {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ApiInitializer.class);
-	
+
+	/**
+	 * The entry point of the app.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		SpringApplication.run(ApiInitializer.class, args);
-		
+
 		LOGGER.info("The application has been run");
 
 	}
 
 	/**
-	 * <p>
 	 * Configuration of Swagger mainly centers around the Docket bean.
-	 * </p>
 	 *
 	 * @return A builder which is intended to be the primary interface into the
 	 *         swagger-springmvc framework
@@ -64,43 +67,44 @@ public class ApiInitializer extends SpringBootServletInitializer {
 				.paths(PathSelectors.any()).build().pathMapping("/");
 
 	}
-	
+
 	/**
-	 * Configuration and start of the DataSource
+	 * Configuration and startup of the DataSource.
 	 * 
 	 * @return The started DataSource
 	 */
 	@Bean
-    public DataSource dataSource() {
+	public DataSource dataSource() {
 		DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url("jdbc:hsqldb:mem:test-local");
-        dataSourceBuilder.username("sa");
-        dataSourceBuilder.password("");
-        dataSourceBuilder.driverClassName("org.hsqldb.jdbcDriver");
-        return dataSourceBuilder.build();
-    }
+		dataSourceBuilder.url("jdbc:hsqldb:mem:test-local");
+		dataSourceBuilder.username("sa");
+		dataSourceBuilder.password("");
+		dataSourceBuilder.driverClassName("org.hsqldb.jdbcDriver");
+		return dataSourceBuilder.build();
+	}
 
 	/**
-	 * configure JPA with Hibernate in Spring
+	 * Configuration of JPA and Hibernate Properties.
+	 * 
 	 * @param dataSource
 	 * @return
 	 */
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
-    	LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource);
-        em.setPackagesToScan(new String[]{"fr"});
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+		em.setDataSource(dataSource);
+		em.setPackagesToScan(new String[] { "fr" });
 
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
+		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		em.setJpaVendorAdapter(vendorAdapter);
 
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        properties.setProperty("spring.jpa.properties.hibernate.format_sql", "true");
-        em.setJpaProperties(properties);
+		Properties properties = new Properties();
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
+		properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+		properties.setProperty("spring.jpa.properties.hibernate.format_sql", "true");
+		em.setJpaProperties(properties);
 
-        return em;
-    }
+		return em;
+	}
 
 }

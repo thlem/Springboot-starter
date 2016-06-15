@@ -27,9 +27,9 @@ import fr.soc.business.services.UserService;
 import fr.soc.data.model.User;
 
 /**
- * <h1>The API security filter</h1>
+ * <h1>The filter that manage HEADER based token security</h1>
  * <p>
- * Retrieve data from the HEADER to check if current access is authorized
+ * Retrieve data from the HEADER to check if current access is authorized.
  * </p>
  * 
  * @author thomas.lemercier.pro@gmail.com
@@ -43,6 +43,13 @@ public class ApiSecurityFilter extends GenericFilterBean {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Add a filter for each request to check for authorization. Return an error in the response for unauthorized request.
+	 * 
+	 * @param request
+	 * @param response
+	 * @param chain
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -95,7 +102,7 @@ public class ApiSecurityFilter extends GenericFilterBean {
 	}
 
 	/**
-	 * Set the response to unauthorized
+	 * Set the response to unauthorized.
 	 * 
 	 * @param response
 	 * @throws IOException

@@ -22,10 +22,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
- * <h1>REST API for users</h1>
+ * <h1>REST Resource for managing Users</h1>
  * 
  * <p>
- * This api manages users.
+ * Provide an interface to manage Users.
  * </p>
  * 
  * @author thomas.lemercier.pro@gmail.com
@@ -38,20 +38,18 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	/**
-	 * <h2>Get All Users</2>
+	 * Retrieve all Users.
 	 * 
 	 * @return ResponseEntity<List<User>> The response containing a user list
 	 */
 	@ApiOperation(value = "getUsers", nickname = "getUsers")
-	@ApiResponses(value = {
+	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Success", response = List.class),
-			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 401, message = "Unauthorized"), 
 			@ApiResponse(code = 403, message = "Forbidden"),
-			@ApiResponse(code = 404, message = "Not Found"),
-			@ApiResponse(code = 500, message = "Failure")
-	})
+			@ApiResponse(code = 500, message = "Failure") })
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getUsers() {
 
@@ -62,20 +60,20 @@ public class UserController {
 	}
 
 	/**
-	 * <h2>Get One User By ID</h2>
+	 * Retrieve one User by its ID.
 	 * 
-	 * @param userId The unique ID of a User
+	 * @param userId
+	 *            The unique ID of a User
 	 * @return ResponseEntity<User> The response containing a User
 	 */
 	@ApiOperation(value = "getUser", nickname = "getUser")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "userId", value = "The user ID", required = false, dataType = "Long", paramType = "query")
-	})
-	@ApiResponses(value = {
+			@ApiImplicitParam(name = "userId", value = "The user ID", required = false, dataType = "Long", paramType = "query") })
+	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Success", response = User.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 400, message = "Bad Request"), 
 			@ApiResponse(code = 401, message = "Unauthorized"),
-			@ApiResponse(code = 403, message = "Forbidden"),
+			@ApiResponse(code = 403, message = "Forbidden"), 
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Failure") })
 	@RequestMapping(method = RequestMethod.GET, path = "/{userId}")

@@ -1,5 +1,7 @@
 package fr.soc.api.controller.administration;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,54 +20,65 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
- * <h1>REST API for API Authorizations</h1>
+ * <h1>REST Resource for managing authorizations of REST Resource</h1>
  * 
  * <p>
- * This api manages roles access for api rest resources.
+ * Provide an interface to manage REST Resource authorizations.
  * </p>
  * 
  * @author thomas.lemercier.pro@gmail.com
  *
  */
-@Api(value = "admin/api-auth")
+@Api(value = "admin/api-authorization")
 @RestController
-@RequestMapping("/api/admin/api-auth")
+@RequestMapping("/api/admin/api-authorization")
 public class ApiAuthorizationController {
 
 	@Autowired
 	private ApiAuthorizationService apiAuthorizationService;
-	
+
 	// GET ALL
-	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<ApiAuthorization>> getAll() {
+
+		List<ApiAuthorization> createdApiAuthorization = apiAuthorizationService.getAll();
+
+		return new ResponseEntity<>(createdApiAuthorization, HttpStatus.OK);
+
+	}
+
 	// GET ONE BY
-	
-	//POST ONE
-	
+
+	// POST ONE
+
 	/**
-	 * <h2>Create one Api Authorization</2>
+	 * Provide the creation, for a REST Resource, of authorized Role.
 	 * 
-	 * @return ResponseEntity<ApiAuthorization> The response containing an api-auth
+	 * @param apiAuthorization
+	 *            The link to create
+	 * @return ResponseEntity<ApiAuthorization> The response containing the
+	 *         created Resource/Role link
 	 */
 	@ApiOperation(value = "createApiAuthorization", nickname = "createApiAuthorization")
-	@ApiResponses(value = {
+	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Success", response = ApiAuthorization.class),
 			@ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 403, message = "Forbidden"),
-			@ApiResponse(code = 500, message = "Failure")
-	})
+			@ApiResponse(code = 500, message = "Failure") })
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ApiAuthorization> createApiAuthorization(@NotNull @RequestBody ApiAuthorization apiAuthorization) {
+	public ResponseEntity<ApiAuthorization> createApiAuthorization(
+			@NotNull @RequestBody ApiAuthorization apiAuthorization) {
 
 		ApiAuthorization createdApiAuthorization = apiAuthorizationService.createApiAuthorization(apiAuthorization);
 
 		return new ResponseEntity<>(createdApiAuthorization, HttpStatus.OK);
 
 	}
-	
+
 	// PUT ONE
-	
+
 	// DELETE ALL
-	
+
 	// DELETE ONE
-	
+
 }

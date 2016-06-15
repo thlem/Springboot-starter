@@ -8,7 +8,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * <h1>The API CORS configuration</h1>
  * 
  * <p>
- * This manages request details.
+ * For security reasons, browsers prohibit AJAX calls to resources residing outside the current origin.
+ * </p>
+ * <p>
+ * We specify here in a flexible way what kind of cross domain requests are authorized.
  * </p>
  * 
  * @author thomas.lemercier.pro@gmail.com

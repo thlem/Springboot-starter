@@ -1,5 +1,7 @@
 package fr.soc.business.services;
 
+import java.util.List;
+
 import fr.soc.data.model.ApiAuthorization;
 
 /**
@@ -25,5 +27,7 @@ public interface ApiAuthorizationService {
 	 * @return The created ApiAuthorization
 	 */
 	public ApiAuthorization createApiAuthorization(ApiAuthorization apiAuthorization);
+	
+	public List<ApiAuthorization> getAll();
 
 }

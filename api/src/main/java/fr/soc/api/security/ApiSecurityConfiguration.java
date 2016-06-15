@@ -15,7 +15,13 @@ import fr.soc.business.services.ApiAuthorizationService;
  * <h1>The Application security initialization</h1>
  * 
  * <p>
- * This manages the security of the Application.
+ * Initialize the security of the application.
+ * </p>
+ * <p>
+ * Specify a filter for each request to manage unauthorized connections.
+ * </p>
+ * <p>
+ * Set the list of authorized Role for each API REST resource.
  * </p>
  * 
  * @author thomas.lemercier.pro@gmail.com
@@ -32,26 +38,32 @@ public class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ApiAuthorizationService securityService;
 
-	/*
-	 * @Autowired private ApiSecurityExceptionHandler
-	 * apiSecurityExceptionHandler;
-	 */
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
 		// Security config to allow some Role or anybody to acces to a REST
 		// resource
-		http
-		// The service that provide checks for authenticated user
-		.addFilterBefore(apiSecurityFilter, AnonymousAuthenticationFilter.class)
-		.authorizeRequests().antMatchers("/swagger-ui**").permitAll()
-		.antMatchers(HttpMethod.GET, "/api/admin/**").access(securityService.getRestAuthorityByRestValue("get/api/admin/**"))
-		.antMatchers(HttpMethod.POST, "/api/admin/**").access(securityService.getRestAuthorityByRestValue("post/api/admin/**"))
-		.antMatchers(HttpMethod.GET, "/api/**").access(securityService.getRestAuthorityByRestValue("get/api/**"));
+		http.csrf().disable()
+				// The service that provide checks for authenticated user
+				.addFilterBefore(apiSecurityFilter, AnonymousAuthenticationFilter.class).authorizeRequests()
+				// The list of API REST resource and authorized Roles
+				// Oragnize as the less generic to the most generic
+				.antMatchers("/swagger-ui**").permitAll().antMatchers(HttpMethod.GET, "/api/admin/**")
+				.access(securityService.getRestAuthorityByRestValue("get/api/admin/**"))
+				.antMatchers(HttpMethod.POST, "/api/admin/**")
+				.access(securityService.getRestAuthorityByRestValue("post/api/admin/**"))
+				.antMatchers(HttpMethod.GET, "/api/**")
+				.access(securityService.getRestAuthorityByRestValue("get/api/**"));
 	}
 
 	/**
+	 * <h1>Inner Constant Class of @see ApiSecurityConfiguration</h1>
+	 * 
+	 * <p>
+	 * List all HEADER specific data relative to the authentication.
+	 * </p>
+	 * 
+	 * @author thomas.lemercier.pro@gmail.com
 	 *
 	 */
 	public class SecurityConstant {
