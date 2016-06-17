@@ -81,7 +81,7 @@ public class ApiSecurityFilter extends GenericFilterBean {
 
 				Set<GrantedAuthority> authorities = new HashSet<>();
 
-				authorities.add(new SimpleGrantedAuthority(authenticatedUser.getUserRole().getRoleLabel()));
+				authorities.add(new SimpleGrantedAuthority(authenticatedUser.getUserRole().getRoleName().name()));
 
 				// Populating authentication token with user information
 				UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authenticatedUser,

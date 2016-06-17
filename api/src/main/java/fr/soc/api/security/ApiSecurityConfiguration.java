@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 
-import fr.soc.business.services.ApiAuthorizationService;
+import fr.soc.data.model.RoleEnum;
 
 /**
  * <h1>The Application security initialization</h1>
@@ -35,9 +35,6 @@ public class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ApiSecurityFilter apiSecurityFilter;
 
-	@Autowired
-	private ApiAuthorizationService securityService;
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -48,12 +45,11 @@ public class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.addFilterBefore(apiSecurityFilter, AnonymousAuthenticationFilter.class).authorizeRequests()
 				// The list of API REST resource and authorized Roles
 				// Oragnize as the less generic to the most generic
-				.antMatchers("/swagger-ui**").permitAll().antMatchers(HttpMethod.GET, "/api/admin/**")
-				.access(securityService.getRestAuthorityByRestValue("get/api/admin/**"))
-				.antMatchers(HttpMethod.POST, "/api/admin/**")
-				.access(securityService.getRestAuthorityByRestValue("post/api/admin/**"))
-				.antMatchers(HttpMethod.GET, "/api/**")
-				.access(securityService.getRestAuthorityByRestValue("get/api/**"));
+				.antMatchers("/swagger-ui**").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/admin/**").hasAuthority(RoleEnum.ADMIN.name())
+				.antMatchers(HttpMethod.POST, "/api/admin/**").hasAuthority(RoleEnum.ADMIN.name())
+				.antMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority(RoleEnum.ADMIN.name(), RoleEnum.USER.name())
+				.antMatchers(HttpMethod.GET, "/api/**").hasAnyAuthority(RoleEnum.ADMIN.name(), RoleEnum.USER.name());
 	}
 
 	/**

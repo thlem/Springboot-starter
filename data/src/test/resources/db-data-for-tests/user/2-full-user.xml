@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 
-    <user user_id="1" user_login="login1" user_password="password1" user_mail="mail1@fr.fr" user_first_name="firstName1" user_last_name="lastName1" />
+	<ROLE ROLE_NAME="ADMIN" />
+	<ROLE ROLE_NAME="USER" />
+
+    <USER USER_ID="1" USER_LOGIN="login1" USER_ENC_PASSWORD="password1" USER_MAIL="mail1@fr.fr" USER_FIRST_NAME="firstName1" USER_LAST_NAME="lastName1" AUTH_TOKEN="token_test1" ROLE_NAME="ADMIN "/>
     
-    <user user_id="2" user_login="login2" user_password="password2" user_mail="mail2@fr.fr" user_first_name="firstName2" user_last_name="lastName2" />
+    <USER USER_ID="2" USER_LOGIN="login2" USER_ENC_PASSWORD="password2" USER_MAIL="mail2@fr.fr" USER_FIRST_NAME="firstName2" USER_LAST_NAME="lastName2" AUTH_TOKEN="token_test2" ROLE_NAME="USER" />
     
 </dataset>

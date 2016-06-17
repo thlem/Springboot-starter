@@ -50,7 +50,7 @@ public class User implements Serializable {
 
 	// The Role of the User
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(nullable = false, name = "ROLE_ID")
+	@JoinColumn(nullable = false, name = "ROLE_NAME")
 	private Role userRole;
 
 	@Column(name = "AUTH_TOKEN")
